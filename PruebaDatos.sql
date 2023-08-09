@@ -1,0 +1,45 @@
+--1. Insertar en tablas los datos de CLIENTES, GENERO, PRODUCTOS y MONEDA. La base de datos a utilizar POSTGRES.--
+CREATE TABLE CLIENTES (CODIGO_CLIENTE INT, NOMBRE CLIENTE VARCHAR (50), TIPO PERSONA VARCHAR (50), GENERO VARCHAR (50),
+FECHA NACIMIENTO DATE, LOCALIDAD VARCHAR (50), FECHA ALTA_CLIENTE DATE);
+
+CREATE TABLE PRODUCTOS (OPERACION VARCHAR (50), CODIGO CLIENTE INT, MONEDA VARCHAR (50), TIPO_CARTERA VARCHAR (50), SALDO_CAPITAL INT,
+SALDO INTERES INT, FECHA PROCESO DATE, FECHA VENCIMIENTO DATE);
+
+CREATE TABLE GENERO (COD GENERO VARCHAR (10), DESCRIPCION VARCHAR (10));
+
+CREATE TABLE MONEDA (COD MONEDA VARCHAR (50), DESCRIPCION VARCHAR (50), COTIZACION INT);
+--importar excel convertido a cvs--
+
+--2. Crear una vista de clientes--
+--A) Mostrar todas las columnas de la tabla clientes.--
+
+SELECT * FROM CLIENTES
+
+--B) Agregar una columna con la descripción del género. Ejemplo F: FEMENINO--
+
+UPDATE CLIENTES
+SET GENERO - CASE
+WHEN GENERO='F' THEN 'FEMENINO'
+WHEN GENERO='M' THEN 'MASCULINO'
+WHEN GENERO= 3 THEN 'JURIDICO'
+END;
+
+--C) Agregar la edad del cliente en base a la fecha de nacimiento, columna FECHA_NACIMIENTO.--
+--CALCULO EDAD--
+SELECT *,
+       2023 - EXTRACT(YEAR FROM FECHA_NACIMIENTO) AS EDAD
+FROM CLIENTES;
+--3. Crear una vista de saldos_productos.--
+--A) Mostrar todas las columnas de la tabla productos
+
+SELECT * FROM PRODUCTOS
+
+--B) Calcular el saldo total del producto. SALDO_CAPITAL + SALDO_INTERES--
+
+SELECT SALDO CAPITAL + SALDO INTERES AS SALDO_TOTAL
+FROM PRODUCTOS
+
+--C) Agregar la cotización y la descripción de la moneda que se encuentra en la tabla MONEDA.--
+SELECT P.*, S.DESCRIPCION, S.COTIZACION
+FROM PRODUCTOS P
+JOIN MONEDA S ON P.MONEDA = S.COD_MONEDA; 
